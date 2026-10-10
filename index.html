@@ -1,0 +1,552 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090b20">
+<title>A Little Universe for Khushi ✦</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg: #090b20;
+  --panel: #11152e;
+  --lavender: #c9b8ff;
+  --silver: #e5e4f4;
+  --muted: #aaaecb;
+  --gold: #f2d7a1;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--silver);
+  background:
+    radial-gradient(ellipse at 50% 0%, #24254b 0%, transparent 55%),
+    var(--bg);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+}
+button { font: inherit; }
+a { color: inherit; }
+#sky {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+main, header, footer { position: relative; z-index: 1; }
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px clamp(20px, 6vw, 80px);
+}
+.brand {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--lavender);
+}
+.header-note { font-size: 11px; color: var(--muted); }
+section {
+  width: min(100% - 40px, 920px);
+  margin: auto;
+}
+.hero {
+  min-height: 82vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 55px 0 85px;
+}
+.eyebrow {
+  color: var(--gold);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-size: 10px;
+}
+.moon {
+  width: 100px;
+  height: 100px;
+  margin: 32px 0 26px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fffdf1, #dcd8ff 48%, #9b8bd8 75%, #5c558e);
+  box-shadow: 0 0 45px #b7a7ff38, 0 0 110px #9e8aff17;
+  position: relative;
+}
+.moon:after {
+  content: "";
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #171936;
+  left: 31px;
+  top: -12px;
+}
+h1, h2, h3, .serif {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 500;
+}
+h1 {
+  font-size: clamp(45px, 9vw, 88px);
+  line-height: .98;
+  letter-spacing: -2px;
+  margin: 0;
+}
+h1 em { color: var(--lavender); font-weight: 400; }
+.hero p {
+  max-width: 440px;
+  line-height: 1.9;
+  font-size: 14px;
+  color: var(--muted);
+  margin: 24px auto 30px;
+}
+.button {
+  border: 1px solid #c9b8ff70;
+  border-radius: 100px;
+  padding: 13px 22px;
+  color: #f4efff;
+  background: #b9a5ff12;
+  cursor: pointer;
+  transition: .25s ease;
+  font-size: 12px;
+}
+.button:hover {
+  background: #c9b8ff24;
+  border-color: var(--lavender);
+  transform: translateY(-2px);
+}
+.button.primary {
+  background: var(--lavender);
+  color: #17132b;
+  border-color: var(--lavender);
+}
+.scroll-hint {
+  margin-top: 65px;
+  color: #898bac;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+.content-section { padding: 55px 0 85px; }
+.section-heading { text-align: center; margin-bottom: 32px; }
+.section-heading h2 {
+  font-size: clamp(35px, 6vw, 52px);
+  margin: 13px 0;
+}
+.section-heading p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+  max-width: 450px;
+  margin: auto;
+}
+.constellation {
+  position: relative;
+  max-width: 720px;
+  min-height: 410px;
+  margin: 35px auto 0;
+  border: 1px solid #b9b1ed18;
+  border-radius: 24px;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at center, #5b4c8b12, transparent 65%),
+    #ffffff03;
+}
+.constellation:before, .constellation:after {
+  content: "";
+  position: absolute;
+  background: #c9b8ff20;
+  height: 1px;
+  transform-origin: left;
+  pointer-events: none;
+}
+.constellation:before { width: 64%; left: 15%; top: 40%; transform: rotate(18deg); }
+.constellation:after { width: 56%; left: 24%; top: 68%; transform: rotate(-32deg); }
+.star {
+  position: absolute;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  width: 53px;
+  height: 53px;
+  border: 1px solid #d8ceff58;
+  border-radius: 50%;
+  color: #fff5d9;
+  background: radial-gradient(circle, #c7b6ff25, #15152eeb 72%);
+  box-shadow: 0 0 25px #b7a4ff18;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  transition: transform .2s, box-shadow .2s, border-color .2s;
+  animation: breathe 3s ease-in-out infinite;
+}
+.star:hover, .star:focus-visible {
+  transform: translate(-50%, -50%) scale(1.18);
+  border-color: var(--gold);
+  box-shadow: 0 0 35px #c9b8ff55;
+  outline: none;
+}
+.star span {
+  position: absolute;
+  top: 57px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 9px;
+  letter-spacing: .5px;
+  white-space: nowrap;
+  color: #c8c8e4;
+}
+@keyframes breathe {
+  0%,100% { filter: brightness(.9); }
+  50% { filter: brightness(1.35); }
+}
+.hint {
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.8;
+  color: #989bbd;
+  margin: 23px auto 0;
+}
+.note-card {
+  max-width: 650px;
+  margin: auto;
+  padding: clamp(25px, 6vw, 48px);
+  border: 1px solid #c9b8ff25;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #c9b8ff0b, #ffffff03);
+  text-align: center;
+}
+.note-card .symbol { font-size: 24px; color: var(--gold); }
+.note-card h2 { font-size: 38px; margin: 18px 0; }
+.note-card p {
+  font-size: 13px;
+  line-height: 2;
+  color: var(--muted);
+  margin: 0 auto;
+  max-width: 470px;
+}
+.divider {
+  width: 55px;
+  height: 1px;
+  background: var(--gold);
+  margin: 26px auto;
+  opacity: .7;
+}
+.surprise { text-align: center; padding-bottom: 100px; }
+.surprise h2 { font-size: clamp(36px, 7vw, 56px); margin: 16px 0; }
+.surprise p {
+  max-width: 440px;
+  margin: 0 auto 25px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.9;
+}
+footer {
+  border-top: 1px solid #ffffff0c;
+  padding: 25px 15px;
+  text-align: center;
+  color: #8588a8;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+footer span { color: var(--lavender); }
+
+dialog {
+  width: min(420px, calc(100% - 32px));
+  border: 1px solid #c9b8ff50;
+  border-radius: 22px;
+  padding: 35px 27px 28px;
+  background: #12152ff7;
+  color: var(--silver);
+  text-align: center;
+  box-shadow: 0 20px 100px #0009;
+}
+dialog::backdrop { background: #050617c9; backdrop-filter: blur(8px); }
+.dialog-star { font-size: 28px; color: var(--gold); }
+dialog h2 { font-size: 36px; margin: 12px 0; }
+dialog p { font-size: 13px; line-height: 1.9; color: #c1c2dc; white-space: pre-line; }
+.close-button {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: transparent;
+  border: 0;
+  color: #bdbbd6;
+  font-size: 25px;
+  cursor: pointer;
+}
+#surprise-message { display: none; margin-top: 25px; }
+#surprise-message.visible { display: block; animation: appear .8s ease both; }
+@keyframes appear {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (max-width: 480px) {
+  header { padding: 20px; }
+  .header-note { font-size: 9px; }
+  .hero { min-height: 78vh; }
+  .moon { width: 78px; height: 78px; }
+  .moon:after { width: 70px; height: 70px; left: 25px; top: -9px; }
+  .constellation { min-height: 385px; border-radius: 17px; }
+  .star { width: 47px; height: 47px; font-size: 21px; }
+  .star span { font-size: 8px; top: 51px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *:before, *:after {
+    animation-duration: .01ms !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+<canvas id="sky" aria-hidden="true"></canvas>
+
+<header>
+  <div class="brand">✦ A little universe</div>
+  <div class="header-note">A small corner of the cosmos</div>
+</header>
+
+<main>
+  <section class="hero" id="home">
+    <div class="eyebrow">Some things deserve their own sky</div>
+    <div class="moon" aria-hidden="true"></div>
+    <h1>This universe<br>has a little <em>Khushi.</em></h1>
+    <p>
+      Out of all the stars and all the places in this enormous universe,
+      here's one little corner made especially for you.
+    </p>
+    <button class="button primary" id="explore">Enter your universe &nbsp; ↗</button>
+    <div class="scroll-hint">SCROLL A LITTLE · THERE'S MORE BELOW</div>
+  </section>
+
+  <section class="content-section" id="stars-section">
+    <div class="section-heading">
+      <div class="eyebrow">Chapter one · The constellation</div>
+      <h2>Little stars, little things.</h2>
+      <p>Each star keeps a small message. Pick one and see what it's holding for you.</p>
+    </div>
+
+    <div class="constellation" id="constellation" aria-label="Interactive constellation of messages">
+      <!-- Stars are added by JavaScript. The rest of the page works without it. -->
+      <noscript>Please enable JavaScript to explore the stars.</noscript>
+    </div>
+    <div class="hint">✧ Tap a star. Each one has its own little note. ✧</div>
+  </section>
+
+  <section class="content-section">
+    <div class="note-card">
+      <div class="symbol">✧</div>
+      <div class="eyebrow">Chapter two · A little reminder</div>
+      <h2>Not everything needs a reason.</h2>
+      <p>
+        Some people make ordinary days feel a little less ordinary.
+        Some conversations become favourite memories without anyone
+        planning them. And sometimes, a simple thought of someone
+        is enough to make a day feel warmer.
+      </p>
+      <div class="divider"></div>
+      <p>
+        This little website is one way of saving a few of those
+        thoughts somewhere among the stars.
+      </p>
+    </div>
+  </section>
+
+  <section class="surprise" id="surprise">
+    <div class="eyebrow">Chapter three · One last little thing</div>
+    <h2>One star left to open.</h2>
+    <p>You've explored the sky. There's one last message waiting below.</p>
+    <button class="button primary" id="reveal">Open the little surprise ✦</button>
+    <div class="note-card" id="surprise-message">
+      <div class="symbol">☾ ✧</div>
+      <h2>For you, Khushi.</h2>
+      <p>
+        No grand universe can fit every little thing that makes a person
+        special. So here's a smaller gift instead: a few words, a sky full
+        of stars, and a page you can visit whenever you feel like it.
+      </p>
+      <div class="divider"></div>
+      <p>Some little things are worth keeping. This is one of them.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  MADE WITH CARE <span>✦</span> JUST FOR KHUSHI
+</footer>
+
+<dialog id="message-dialog">
+  <button class="close-button" id="close-dialog" aria-label="Close message">×</button>
+  <div class="dialog-star">✧</div>
+  <div class="eyebrow">A note from the stars</div>
+  <h2 id="dialog-title">A little thought</h2>
+  <p id="dialog-text"></p>
+  <button class="button" id="dialog-done">Keep exploring</button>
+</dialog>
+
+<script>
+(() => {
+  'use strict';
+
+  // EDIT THESE MESSAGES to make every star personal.
+  const memories = [
+    {
+      title: 'A little happiness',
+      message: 'Your name itself feels like a reminder that happiness can show up in the smallest places.'
+    },
+    {
+      title: 'The little things',
+      message: 'Sometimes the smallest conversations become the ones we remember for much longer than expected.'
+    },
+    {
+      title: 'Your own kind of magic',
+      message: 'You do not have to be extraordinary every second. Being yourself is already enough.'
+    },
+    {
+      title: 'A quiet reminder',
+      message: 'On the days when everything feels a bit too much, remember to be kind to yourself too.'
+    },
+    {
+      title: 'A favourite memory',
+      message: 'Some moments do not look important while they are happening. Later, they become the ones we treasure.'
+    },
+    {
+      title: 'A tiny wish',
+      message: 'May life give you reasons to laugh, people who understand you, and days that feel gentle.'
+    },
+    {
+      title: 'A star for you',
+      message: 'The sky has billions of stars, but this little one has your name written all over its story.'
+    },
+    {
+      title: 'Keep shining',
+      message: 'You are allowed to grow slowly, change your mind, take breaks, and figure things out in your own time.'
+    },
+    {
+      title: 'One last thought',
+      message: 'This page is small, but the time spent making something thoughtful is a little gift all by itself.'
+    }
+  ];
+
+  const positions = [
+    [17, 23], [43, 15], [73, 25],
+    [84, 51], [61, 67], [31, 77],
+    [13, 55], [48, 43], [73, 85]
+  ];
+
+  const constellation = document.getElementById('constellation');
+  const dialog = document.getElementById('message-dialog');
+  const title = document.getElementById('dialog-title');
+  const text = document.getElementById('dialog-text');
+
+  function openMessage(index) {
+    const item = memories[index];
+    if (!item) return;
+
+    title.textContent = item.title;
+    text.textContent = item.message;
+
+    if (typeof dialog.showModal === 'function') {
+      if (!dialog.open) dialog.showModal();
+    } else {
+      // Fallback for browsers without dialog support.
+      alert(item.title + '\n\n' + item.message);
+    }
+  }
+
+  // Build the stars after the HTML is ready.
+  memories.forEach((item, index) => {
+    const star = document.createElement('button');
+    star.type = 'button';
+    star.className = 'star';
+    star.style.left = positions[index][0] + '%';
+    star.style.top = positions[index][1] + '%';
+    star.style.animationDelay = (index * 0.22) + 's';
+    star.setAttribute('aria-label', 'Open message: ' + item.title);
+    star.innerHTML = '✦<span>Star ' + (index + 1) + '</span>';
+    star.addEventListener('click', () => openMessage(index));
+    constellation.appendChild(star);
+  });
+
+  document.getElementById('explore').addEventListener('click', () => {
+    document.getElementById('stars-section').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  document.getElementById('close-dialog').addEventListener('click', () => dialog.close());
+  document.getElementById('dialog-done').addEventListener('click', () => dialog.close());
+
+  dialog.addEventListener('click', event => {
+    if (event.target === dialog) dialog.close();
+  });
+
+  document.getElementById('reveal').addEventListener('click', () => {
+    const message = document.getElementById('surprise-message');
+    message.classList.add('visible');
+    document.getElementById('reveal').textContent = 'Your surprise is open ✦';
+    message.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+
+  // Decorative background stars. If canvas animation fails, the page content remains.
+  try {
+    const canvas = document.getElementById('sky');
+    const ctx = canvas.getContext('2d');
+    if (ctx) {
+      let stars = [];
+      let width = 0;
+      let height = 0;
+      let frame = 0;
+
+      function resize() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = Math.floor(width * dpr);
+        canvas.height = Math.floor(height * dpr);
+        canvas.style.width = width + 'px';
+        canvas.style.height = height + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        const count = Math.min(130, Math.floor(width * height / 8500));
+        stars = Array.from({ length: count }, () => ({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          r: Math.random() * 1.4 + 0.25,
+          phase: Math.random() * Math.PI * 2
+        }));
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, width, height);
+        stars.forEach(star => {
+          const alpha = 0.25 + (Math.sin(frame * 0.018 + star.phase) + 1) * 0.3;
+          ctx.beginPath();
+          ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(221, 214, 255, ' + alpha + ')';
+          ctx.fill();
+        });
+        frame++;
+        requestAnimationFrame(draw);
+      }
+
+      resize();
+      window.addEventListener('resize', resize);
+      draw();
+    }
+  } catch (error) {
+    // Decorative effects are optional; the actual website still works.
+    console.warn('Background effects unavailable:', error);
+  }
+})();
+</script>
+</body>
+</html>
+```
